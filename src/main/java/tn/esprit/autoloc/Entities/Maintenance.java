@@ -22,6 +22,10 @@ public class Maintenance {
 
     private LocalDate dateFin;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false)
     private String description;
+
+    @ToString.Exclude
+    @ManyToOne
+    private Vehicule vehicule;
 }

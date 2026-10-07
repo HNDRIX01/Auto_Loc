@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -37,8 +39,21 @@ public class Vehicule {
     @Column(nullable = false, precision = 10, scale =2)
     BigDecimal tarifJournalier;
 
+    @ToString.Exclude
+    @ManyToOne
+    private Agence agence;
 
+    @ToString.Exclude
+    @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL)
+    private Set<Maintenance> maintenances = new HashSet<>();
 
+    @ToString.Exclude
+    @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL)
+    private Set<Reservation> reservations = new HashSet<>();
+
+    @ToString.Exclude
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Equipement> equipements = new HashSet<>();
 
 
 

@@ -3,6 +3,9 @@ package tn.esprit.autoloc.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Setter
 @Getter
 @ToString
@@ -24,4 +27,12 @@ public class Employe {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private RoleEmploye role;
+
+    @ToString.Exclude
+    @ManyToOne
+    private Agence agence;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "employe", cascade = CascadeType.ALL)
+    private Set<Reservation> reservations = new HashSet<>();
 }

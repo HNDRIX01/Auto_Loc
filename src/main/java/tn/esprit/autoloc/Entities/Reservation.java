@@ -26,4 +26,20 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private StatutReservation statut;
+
+    @ToString.Exclude
+    @ManyToOne
+    private Vehicule vehicule;
+
+    @ToString.Exclude
+    @ManyToOne
+    private Employe employe;
+
+    @ToString.Exclude
+    @ManyToOne
+    private Client client;
+
+    @ToString.Exclude
+    @OneToOne(cascade = CascadeType.ALL)
+    private Contrat contrat;
 }

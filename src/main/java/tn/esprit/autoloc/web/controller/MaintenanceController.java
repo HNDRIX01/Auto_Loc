@@ -28,21 +28,17 @@ public class MaintenanceController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Maintenance create(@RequestBody Maintenance maintenance) {
-        maintenance.setIdMaintenance(null);
-        return maintenanceService.save(maintenance);
+        return maintenanceService.create(maintenance);
     }
 
     @PutMapping("/{id}")
     public Maintenance update(@PathVariable Long id, @RequestBody Maintenance maintenance) {
-        maintenanceService.findById(id);
-        maintenance.setIdMaintenance(id);
-        return maintenanceService.save(maintenance);
+        return maintenanceService.update(id, maintenance);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
-        maintenanceService.findById(id);
         maintenanceService.deleteById(id);
     }
 }

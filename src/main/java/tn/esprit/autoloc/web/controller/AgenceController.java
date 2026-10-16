@@ -28,21 +28,17 @@ public class AgenceController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Agence create(@RequestBody Agence agence) {
-        agence.setIdAgence(null);
-        return agenceService.save(agence);
+        return agenceService.create(agence);
     }
 
     @PutMapping("/{id}")
     public Agence update(@PathVariable Long id, @RequestBody Agence agence) {
-        agenceService.findById(id);
-        agence.setIdAgence(id);
-        return agenceService.save(agence);
+        return agenceService.update(id, agence);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
-        agenceService.findById(id);
         agenceService.deleteById(id);
     }
 }

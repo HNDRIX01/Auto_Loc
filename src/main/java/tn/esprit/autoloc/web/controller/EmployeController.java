@@ -28,21 +28,17 @@ public class EmployeController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Employe create(@RequestBody Employe employe) {
-        employe.setIdEmploye(null);
-        return employeService.save(employe);
+        return employeService.create(employe);
     }
 
     @PutMapping("/{id}")
     public Employe update(@PathVariable Long id, @RequestBody Employe employe) {
-        employeService.findById(id);
-        employe.setIdEmploye(id);
-        return employeService.save(employe);
+        return employeService.update(id, employe);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
-        employeService.findById(id);
         employeService.deleteById(id);
     }
 }

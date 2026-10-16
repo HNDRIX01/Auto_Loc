@@ -28,21 +28,17 @@ public class VehiculeController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Vehicule create(@RequestBody Vehicule vehicule) {
-        vehicule.setIdVehicule(null);
-        return vehiculeService.save(vehicule);
+        return vehiculeService.create(vehicule);
     }
 
     @PutMapping("/{id}")
     public Vehicule update(@PathVariable Long id, @RequestBody Vehicule vehicule) {
-        vehiculeService.findById(id);
-        vehicule.setIdVehicule(id);
-        return vehiculeService.save(vehicule);
+        return vehiculeService.update(id, vehicule);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
-        vehiculeService.findById(id);
         vehiculeService.deleteById(id);
     }
 }

@@ -1,10 +1,10 @@
 package tn.esprit.autoloc.service;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tn.esprit.autoloc.domain.Paiement;
+import tn.esprit.autoloc.exception.ResourceNotFoundException;
 import tn.esprit.autoloc.repository.IPaiementRepository;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public class PaiementServiceImpl implements IPaiementService {
     @Override
     public Paiement findById(Long id) {
         return paiementRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Paiement introuvable, id=" + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Paiement", id));
     }
 
     @Override

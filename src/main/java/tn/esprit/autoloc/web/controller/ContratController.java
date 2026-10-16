@@ -29,21 +29,17 @@ public class ContratController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Contrat create(@RequestBody Contrat contrat) {
-        contrat.setIdContrat(null);
-        return contratService.save(contrat);
+        return contratService.create(contrat);
     }
 
     @PutMapping("/{id}")
     public Contrat update(@PathVariable Long id, @RequestBody Contrat contrat) {
-        contratService.findById(id);
-        contrat.setIdContrat(id);
-        return contratService.save(contrat);
+        return contratService.update(id, contrat);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
-        contratService.findById(id);
         contratService.deleteById(id);
     }
 

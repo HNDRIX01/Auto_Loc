@@ -28,21 +28,17 @@ public class EquipementController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Equipement create(@RequestBody Equipement equipement) {
-        equipement.setIdEquipement(null);
-        return equipementService.save(equipement);
+        return equipementService.create(equipement);
     }
 
     @PutMapping("/{id}")
     public Equipement update(@PathVariable Long id, @RequestBody Equipement equipement) {
-        equipementService.findById(id);
-        equipement.setIdEquipement(id);
-        return equipementService.save(equipement);
+        return equipementService.update(id, equipement);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
-        equipementService.findById(id);
         equipementService.deleteById(id);
     }
 }

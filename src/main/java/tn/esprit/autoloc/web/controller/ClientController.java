@@ -28,21 +28,17 @@ public class ClientController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Client create(@RequestBody Client client) {
-        client.setIdClient(null);
-        return clientService.save(client);
+        return clientService.create(client);
     }
 
     @PutMapping("/{id}")
     public Client update(@PathVariable Long id, @RequestBody Client client) {
-        clientService.findById(id);
-        client.setIdClient(id);
-        return clientService.save(client);
+        return clientService.update(id, client);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
-        clientService.findById(id);
         clientService.deleteById(id);
     }
 }

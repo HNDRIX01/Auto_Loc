@@ -1,5 +1,6 @@
 package tn.esprit.autoloc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,6 +30,7 @@ public class Paiement {
     private ModePaiement modePaiement;
 
     @ToString.Exclude
+    @JsonIgnore
     @ManyToOne
     private Contrat contrat;
 }

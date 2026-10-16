@@ -1,5 +1,6 @@
 package tn.esprit.autoloc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,6 +32,7 @@ public class Contrat {
     @Column(nullable = false)
     private boolean valide;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "contrat")
     private Reservation reservation;
 

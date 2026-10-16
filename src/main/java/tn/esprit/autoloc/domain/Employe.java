@@ -1,5 +1,6 @@
 package tn.esprit.autoloc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,6 +34,7 @@ public class Employe {
     private Agence agence;
 
     @ToString.Exclude
+    @JsonIgnore
     @OneToMany(mappedBy = "employe", cascade = CascadeType.ALL)
     private Set<Reservation> reservations = new HashSet<>();
 }

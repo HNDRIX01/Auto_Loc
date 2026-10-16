@@ -1,5 +1,6 @@
 package tn.esprit.autoloc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -44,15 +45,17 @@ public class Vehicule {
     private Agence agence;
 
     @ToString.Exclude
+    @JsonIgnore
     @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL)
     private Set<Maintenance> maintenances = new HashSet<>();
 
     @ToString.Exclude
+    @JsonIgnore
     @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL)
     private Set<Reservation> reservations = new HashSet<>();
 
     @ToString.Exclude
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany
     private Set<Equipement> equipements = new HashSet<>();
 
 

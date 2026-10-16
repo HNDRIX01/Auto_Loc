@@ -1,8 +1,9 @@
-package tn.esprit.autoloc.Entities;
+package tn.esprit.autoloc.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,11 +13,11 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Employe {
+public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idEmploye;
+    private Long idClient;
 
     @Column(nullable = false, length = 50)
     private String nom;
@@ -24,15 +25,19 @@ public class Employe {
     @Column(nullable = false, length = 50)
     private String prenom;
 
-    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, unique = true, length = 100)
+    private String email;
+
     @Column(nullable = false, length = 20)
-    private RoleEmploye role;
+    private String telephone;
+
+    @Column(nullable = false, unique = true, length = 25)
+    private String numPermis;
+
+    @Column(nullable = false)
+    private LocalDate dateInscription;
 
     @ToString.Exclude
-    @ManyToOne
-    private Agence agence;
-
-    @ToString.Exclude
-    @OneToMany(mappedBy = "employe", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private Set<Reservation> reservations = new HashSet<>();
 }

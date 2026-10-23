@@ -1,5 +1,10 @@
 package tn.esprit.autoloc.web.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -8,37 +13,64 @@ import tn.esprit.autoloc.service.IEmployeService;
 
 import java.util.List;
 
+@Tag(name = "Employes", description = "Gestion des employés")
 @RestController
-@RequestMapping("/api/employes")
+@RequestMapping("/employes")
 @RequiredArgsConstructor
 public class EmployeController {
 
+    private static final String ID_PARAM = "Identifiant de l'employé";
+
     private final IEmployeService employeService;
 
+    @Operation(summary = "Lister les employés")
+    @ApiResponse(responseCode = "200", description = "Liste des employés")
     @GetMapping
     public List<Employe> findAll() {
         return employeService.findAll();
     }
 
+    @Operation(summary = "Consulter un employé")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Employé trouvé"),
+            @ApiResponse(responseCode = "404", description = "Employé introuvable")
+    })
     @GetMapping("/{id}")
-    public Employe findById(@PathVariable Long id) {
+    public Employe findById(@Parameter(description = ID_PARAM) @PathVariable Long id) {
         return employeService.findById(id);
     }
 
+    @Operation(summary = "Créer un employé", description = "Agence en corps imbriqué : { \"agence\": {\"idAgence\": 1} }")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Employé créé"),
+            @ApiResponse(responseCode = "400", description = "Identifiant fourni, nom ou rôle manquant")
+    })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Employe create(@RequestBody Employe employe) {
         return employeService.create(employe);
     }
 
+    @Operation(summary = "Modifier un employé")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Employé modifié"),
+            @ApiResponse(responseCode = "404", description = "Employé introuvable"),
+            @ApiResponse(responseCode = "400", description = "Nom ou rôle manquant")
+    })
     @PutMapping("/{id}")
-    public Employe update(@PathVariable Long id, @RequestBody Employe employe) {
+    public Employe update(@Parameter(description = ID_PARAM) @PathVariable Long id,
+                           @RequestBody Employe employe) {
         return employeService.update(id, employe);
     }
 
+    @Operation(summary = "Supprimer un employé")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Employé supprimé"),
+            @ApiResponse(responseCode = "404", description = "Employé introuvable")
+    })
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    public void delete(@Parameter(description = ID_PARAM) @PathVariable Long id) {
         employeService.deleteById(id);
     }
 }

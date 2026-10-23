@@ -1,6 +1,6 @@
 package tn.esprit.autoloc.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,7 +30,7 @@ public class Paiement {
     private ModePaiement modePaiement;
 
     @ToString.Exclude
-    @JsonIgnore
+    @JsonBackReference("contrat-paiements")
     @ManyToOne
     private Contrat contrat;
 }
